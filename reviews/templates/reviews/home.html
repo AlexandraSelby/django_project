@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Fragrance Club</title>
+  </head>
+  <body>
+    <h1>Latest Reviews</h1>
+
+    {% if reviews %}
+      <ul>
+        {% for r in reviews %}
+          <li><strong>{{ r.brand }} {{ r.fragrance_name }}</strong> — {{ r.rating }}/5<br>
+              {{ r.body|linebreaksbr }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No reviews yet.</p>
+    {% endif %}
+  </body>
+</html>
