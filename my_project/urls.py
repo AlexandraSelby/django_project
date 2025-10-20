@@ -1,8 +1,8 @@
+# my_project/urls.py
 from django.contrib import admin
 from django.urls import path, include
-from reviews import urls as reviews_urls  
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", include(reviews_urls)),       
+    path("admin/", admin.site.urls),   # Django admin
+    path("", include("reviews.urls")), # Mount ONLY the reviews app at the site root
 ]

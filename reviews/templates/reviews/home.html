@@ -10,8 +10,14 @@
     {% if reviews %}
       <ul>
         {% for r in reviews %}
-          <li><strong>{{ r.brand }} {{ r.fragrance_name }}</strong> — {{ r.rating }}/5<br>
-              {{ r.body|linebreaksbr }}</li>
+        <li>
+  <!-- link to the namespaced detail route, passing the primary key -->
+  <a href="{% url 'reviews:detail' r.pk %}">
+    <strong>{{ r.brand }} {{ r.fragrance_name }}</strong>
+  </a>
+  — {{ r.rating }}/5<br>
+  {{ r.body|linebreaksbr }}
+</li>
         {% endfor %}
       </ul>
     {% else %}

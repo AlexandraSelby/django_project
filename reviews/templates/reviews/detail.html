@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ review.brand }} — {{ review.fragrance_name }}</title>
+  </head>
+  <body>
+    <p><a href="{% url 'reviews:home' %}">← Back to reviews</a></p>
+
+    <h1>{{ review.brand }} — {{ review.fragrance_name }}</h1>
+    <p><strong>Rating:</strong> {{ review.rating }}/5</p>
+    <p>{{ review.body|linebreaksbr }}</p>
+    <p><small>Added: {{ review.created }}</small></p>
+  </body>
+</html>
