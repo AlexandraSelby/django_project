@@ -1,6 +1,6 @@
 from django.db import models
 
-from django.db import models
+from django.urls import reverse
 
 class Review(models.Model):
     brand = models.CharField(max_length=80)
@@ -14,5 +14,11 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.brand} {self.fragrance_name} ({self.rating}/5)"
+    
+def get_absolute_url(self):
+    """Canonical URL for this review (used by templates/links)."""
+    return reverse("reviews:detail", args=[self.pk])
+
+
     
     

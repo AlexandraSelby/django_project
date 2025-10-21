@@ -4,7 +4,7 @@ from .models import Review
 
 def home(request):
     # Newest 20 reviews
-    reviews = Review.objects.order_by("-created")[:20]
+    reviews = Review.objects.only("brand", "fragrance_name", "rating", "body", "created")[:20]
     return render(request, "reviews/home.html", {"reviews": reviews})
 
 def detail(request, pk: int):

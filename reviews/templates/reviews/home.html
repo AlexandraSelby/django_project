@@ -2,16 +2,19 @@
 {% block title %}Fragrance Club — Reviews{% endblock %}
 
 {% block content %}
-  <h1>Fragrance Reviews</h1>
+  <h1>{{ review.brand }} — {{ review.fragrance_name }}</h1>
+<p><small>Posted {{ review.created|date:"j M Y, H:i" }}</small></p>
+<p><strong>Rating:</strong> {{ review.rating }}/5</p>
 
   {% if reviews %}
     <ul>
       {% for review in reviews %}
         <li>
           <strong>{{ review.brand }} – {{ review.fragrance_name }}</strong>
-          ({{ review.rating }}/5)<br />
-          {{ review.body|truncatewords:20 }}<br />
-          <a href="{% url 'reviews:detail' review.id %}">Read more</a>
+({{ review.rating }}/5)<br />
+<small>Posted {{ review.created|date:"j M Y, H:i" }}</small><br />
+{{ review.body|truncatewords:20 }}<br />
+<a href="{% url 'reviews:detail' review.id %}">Read more</a>
         </li>
         <hr />
       {% endfor %}
