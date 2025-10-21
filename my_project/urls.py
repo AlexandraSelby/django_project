@@ -1,8 +1,13 @@
 # my_project/urls.py
+# Project-level URL routes: admin and the reviews app.
+
 from django.contrib import admin
 from django.urls import path, include
 
+# Map URLs to views. Keep routes small and obvious.
+
 urlpatterns = [
-    path("admin/", admin.site.urls),   # Django admin
-    path("", include("reviews.urls")), # Mount ONLY the reviews app at the site root
+    path("admin/", admin.site.urls),                 # Django admin at /admin/
+    path("reviews/", include("reviews.urls")),       # Mount the reviews app at /reviews/
+    # Example: /reviews/ → home view, /reviews/1/ → detail view
 ]

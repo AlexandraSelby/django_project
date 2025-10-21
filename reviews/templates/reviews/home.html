@@ -1,27 +1,22 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Fragrance Club</title>
-  </head>
-  <body>
-    <h1>Latest Reviews</h1>
+{% extends "reviews/base.html" %}
+{% block title %}Fragrance Club — Reviews{% endblock %}
 
-    {% if reviews %}
-      <ul>
-        {% for r in reviews %}
+{% block content %}
+  <h1>Fragrance Reviews</h1>
+
+  {% if reviews %}
+    <ul>
+      {% for review in reviews %}
         <li>
-  <!-- link to the namespaced detail route, passing the primary key -->
-  <a href="{% url 'reviews:detail' r.pk %}">
-    <strong>{{ r.brand }} {{ r.fragrance_name }}</strong>
-  </a>
-  — {{ r.rating }}/5<br>
-  {{ r.body|linebreaksbr }}
-</li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>No reviews yet.</p>
-    {% endif %}
-  </body>
-</html>
+          <strong>{{ review.brand }} – {{ review.fragrance_name }}</strong>
+          ({{ review.rating }}/5)<br />
+          {{ review.body|truncatewords:20 }}<br />
+          <a href="{% url 'reviews:detail' review.id %}">Read more</a>
+        </li>
+        <hr />
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No reviews yet. Add one in the admin.</p>
+  {% endif %}
+{% endblock %}
