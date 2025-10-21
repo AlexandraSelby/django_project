@@ -9,5 +9,6 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),                 # Django admin at /admin/
     path("reviews/", include("reviews.urls")),       # Mount the reviews app at /reviews/
-    # Example: /reviews/ → home view, /reviews/1/ → detail view
+    # Example: /reviews/ → home view, /reviews/1/ → detail view 
+    path("accounts/", include("django.contrib.auth.urls")),  # Login/Logout/Password views
 ]
