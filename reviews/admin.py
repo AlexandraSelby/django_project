@@ -7,3 +7,5 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display = ("brand", "fragrance_name", "rating", "created")
     search_fields = ("brand", "fragrance_name", "body")
     list_filter = ("rating", "created")
+    
+    
