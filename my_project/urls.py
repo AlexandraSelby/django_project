@@ -3,6 +3,9 @@
 
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView  # tiny helper to redirect one URL to another (302/301)
+
+
 
 # Map URLs to views. Keep routes small and obvious.
 
@@ -12,3 +15,4 @@ urlpatterns = [
     # Example: /reviews/ → home view, /reviews/1/ → detail view 
     path("accounts/", include("django.contrib.auth.urls")),  # Login/Logout/Password views
 ]
+
