@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # serve static files in prod
+   
 ]
 
 ROOT_URLCONF = "my_project.urls"
@@ -126,7 +126,7 @@ from pathlib import Path  # (already present above)
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"  # where collectstatic puts files
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+ALLOWED_HOSTS = ["*"]  # staging only; tighten later
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
