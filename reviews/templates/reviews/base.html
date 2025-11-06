@@ -11,7 +11,47 @@
 </head>
 <body>
   <main class="container">
+      <!--
+    Simple global navigation
+    - Shows "Sign in" + "Create account" when logged out
+    - Shows "Welcome, <username>" + "Log out" when logged in
+    - Keeps links obvious to satisfy user stories (discoverable auth actions)
+  -->
+  <nav aria-label="Primary" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+    <a href="{% url 'reviews:home' %}" style="font-weight:600;">Fragrance Club</a>
+
+    <ul style="list-style:none;display:flex;gap:1rem;margin:0;padding:0;">
+      {% if user.is_authenticated %}
+        <!-- Logged-in view -->
+        <li><!-- greet the user for clarity -->
+          <span>Welcome, <strong>{{ user.username }}</strong></span>
+        </li>
+        <li>
+          <!-- Django auth logout route -->
+          <a href="{% url 'logout' %}">Log out</a>
+        </li>
+      {% else %}
+        <!-- Logged-out view -->
+        <li>
+          <!-- Django auth login route -->
+          <a href="{% url 'login' %}">Sign in</a>
+        </li>
+        <li>
+          <!-- app signup route -->
+          <a href="{% url 'reviews:signup' %}">Create account</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <!-- Optional status area for future messages (kept empty for now)
+       Screen readers will announce messages if I add Django "messages" later. -->
+  <div role="status" aria-live="polite"></div>
+
+  {% block content %}{% endblock %}
+
     {% block content %}{% endblock %}
   </main>
 </body>
 </html>
+

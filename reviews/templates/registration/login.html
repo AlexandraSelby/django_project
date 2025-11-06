@@ -2,25 +2,44 @@
 {% block title %}Sign in — Fragrance Club{% endblock %}
 
 {% block content %}
+  <!-- Sign-in page
+       - Keep the form simple and readable.
+       - Show a friendly error hint if auth fails.
+       - Offer clear paths: reset password OR create account. -->
+
   <h1>Sign in</h1>
 
   {% if form.errors %}
+    <!-- Authentication failed (e.g., wrong username/password). -->
     <p><strong>Check your username/password and try again.</strong></p>
   {% endif %}
 
+  <!-- Use Django's built-in login URL; simple, explicit fields. -->
   <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
+
     <p>
       <label for="id_username">Username</label><br>
       <input type="text" name="username" id="id_username" required autofocus>
     </p>
+
     <p>
       <label for="id_password">Password</label><br>
       <input type="password" name="password" id="id_password" required>
     </p>
-    <input type="hidden" name="next" value="{{ next }}">
+
+    <!-- Preserve post-login destination if provided. -->
+    {% if next %}
+      <input type="hidden" name="next" value="{{ next }}">
+    {% endif %}
+
     <button type="submit">Sign in</button>
   </form>
 
-  <p><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+  <p>
+    <a href="{% url 'password_reset' %}">Forgot password?</a>
+    &nbsp;·&nbsp;
+    <!-- Clear path for new users → aligns with user story “I can create an account quickly”. -->
+    <a href="{% url 'reviews:signup' %}">Create account</a>
+  </p>
 {% endblock %}

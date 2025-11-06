@@ -130,6 +130,15 @@ ALLOWED_HOSTS = ["*"]  # staging only; tighten later
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Redirects after login/logout
-LOGIN_REDIRECT_URL = "/reviews/"
-LOGOUT_REDIRECT_URL = "/reviews/"
+# --------------------------------------------------
+# Authentication redirect behaviour
+# --------------------------------------------------
+# After login or logout, send users to the reviews home page.
+# Keeps navigation consistent with user stories:
+# - Returning visitors see the latest reviews immediately.
+# - New users land in a friendly, content-rich area after signing in.
+
+LOGIN_REDIRECT_URL = "reviews:home"   # after successful login
+LOGOUT_REDIRECT_URL = "reviews:home"  # after logout
+LOGIN_URL = "login"                   # default login page for @login_required redirects
+
