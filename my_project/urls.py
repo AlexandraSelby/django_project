@@ -15,4 +15,14 @@ urlpatterns = [
     # Example: /reviews/ → home view, /reviews/1/ → detail view 
     path("accounts/", include("django.contrib.auth.urls")),  # Login/Logout/Password views
 ]
+from django.contrib import admin
+from django.urls import path, include
+from django.views.generic import RedirectView  # simple root redirect to a named URL
 
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("reviews/", include("reviews.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
+    # Redirect "/" → reviews home (non-permanent so browsers don’t cache it)
+    path("", RedirectView.as_view(pattern_name="reviews:home", permanent=False), name="root"),
+]
