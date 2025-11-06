@@ -26,3 +26,14 @@ urlpatterns = [
     # Redirect "/" → reviews home (non-permanent so browsers don’t cache it)
     path("", RedirectView.as_view(pattern_name="reviews:home", permanent=False), name="root"),
 ]
+from django.contrib import admin
+from django.urls import path, include
+from django.views.generic import RedirectView  # tiny helper for simple redirects
+
+urlpatterns = [
+    path("admin/", admin.site.urls),                   # Django admin
+    path("reviews/", include("reviews.urls")),         # app urls
+    path("accounts/", include("django.contrib.auth.urls")),  # auth views
+    path("", RedirectView.as_view(pattern_name="reviews:home", permanent=False)),
+    # ^ Send "/" to the reviews homepage so users don’t hit a 404.
+]
