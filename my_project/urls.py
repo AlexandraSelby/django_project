@@ -1,39 +1,15 @@
 # my_project/urls.py
-# Project-level URL routes: admin and the reviews app.
-
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import RedirectView  # tiny helper to redirect one URL to another (302/301)
-
-
-
-# Map URLs to views. Keep routes small and obvious.
-
-urlpatterns = [
-    path("admin/", admin.site.urls),                 # Django admin at /admin/
-    path("reviews/", include("reviews.urls")),       # Mount the reviews app at /reviews/
-    # Example: /reviews/ → home view, /reviews/1/ → detail view 
-    path("accounts/", include("django.contrib.auth.urls")),  # Login/Logout/Password views
-]
-from django.contrib import admin
-from django.urls import path, include
-from django.views.generic import RedirectView  # simple root redirect to a named URL
+from django.views.generic import RedirectView
+from reviews.views import LoginWithMessage 
+from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("reviews/", include("reviews.urls")),
+    path("accounts/login/",  LoginView.as_view(),  name="login"),
+    path("accounts/logout/", LogoutView.as_view(), name="logout"), # <-- swap in built-in
     path("accounts/", include("django.contrib.auth.urls")),
-    # Redirect "/" → reviews home (non-permanent so browsers don’t cache it)
     path("", RedirectView.as_view(pattern_name="reviews:home", permanent=False), name="root"),
-]
-from django.contrib import admin
-from django.urls import path, include
-from django.views.generic import RedirectView  # tiny helper for simple redirects
-
-urlpatterns = [
-    path("admin/", admin.site.urls),                   # Django admin
-    path("reviews/", include("reviews.urls")),         # app urls
-    path("accounts/", include("django.contrib.auth.urls")),  # auth views
-    path("", RedirectView.as_view(pattern_name="reviews:home", permanent=False)),
-    # ^ Send "/" to the reviews homepage so users don’t hit a 404.
 ]

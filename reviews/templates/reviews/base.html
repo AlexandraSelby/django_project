@@ -1,3 +1,6 @@
++75
+-0
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,52 +8,77 @@
   <title>{% block title %}Fragrance Club{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    /* Basic typography and layout */
     body { font-family: system-ui, sans-serif; margin: 2rem; line-height: 1.6; }
     .container { max-width: 900px; margin: 0 auto; }
   </style>
 </head>
 <body>
   <main class="container">
-      <!--
-    Simple global navigation
-    - Shows "Sign in" + "Create account" when logged out
-    - Shows "Welcome, <username>" + "Log out" when logged in
-    - Keeps links obvious to satisfy user stories (discoverable auth actions)
-  -->
-  <nav aria-label="Primary" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
-    <a href="{% url 'reviews:home' %}" style="font-weight:600;">Fragrance Club</a>
 
-    <ul style="list-style:none;display:flex;gap:1rem;margin:0;padding:0;">
-      {% if user.is_authenticated %}
-        <!-- Logged-in view -->
-        <li><!-- greet the user for clarity -->
-          <span>Welcome, <strong>{{ user.username }}</strong></span>
-        </li>
-        <li>
-          <!-- Django auth logout route -->
-          <a href="{% url 'logout' %}">Log out</a>
-        </li>
-      {% else %}
-        <!-- Logged-out view -->
-        <li>
-          <!-- Django auth login route -->
-          <a href="{% url 'login' %}">Sign in</a>
-        </li>
-        <li>
-          <!-- app signup route -->
-          <a href="{% url 'reviews:signup' %}">Create account</a>
-        </li>
-      {% endif %}
-    </ul>
-  </nav>
+    <!-- 
+      Primary navigation bar 
+      Includes site title and user account controls.
+      Shows Sign in / Create account for anonymous users,
+      and username + Sign out for logged-in users.
+    -->
+    <nav aria-label="Primary" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+      <!-- Site logo/title -->
+      <a href="{% url 'reviews:home' %}" style="font-weight:600;">Fragrance Club</a>
 
-  <!-- Optional status area for future messages (kept empty for now)
-       Screen readers will announce messages if I add Django "messages" later. -->
-  <div role="status" aria-live="polite"></div>
+      <!-- Account actions -->
+      <ul style="list-style:none;display:flex;gap:1rem;margin:0;padding:0;">
+        {% if user.is_authenticated %}
+          <li>
+            <!-- Friendly greeting for logged-in user -->
+            <span>Welcome, <strong>{{ user.username }}</strong></span>
+          </li>
+          <li>
+            <!-- 
+              Sign out link (GET method) with ?next redirect
+              Simpler and avoids CSRF issues.
+              Redirects user to reviews home after logout.
+            -->
+            <li>
+  <!-- Logout must be POST on Django 5 -->
+  <form method="post" action="{% url 'logout' %}" style="display:inline;">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{% url 'reviews:home' %}">
+    <button type="submit">Sign out</button>
+  </form>
+            </li>
+        {% else %}
+          <!-- Anonymous user options -->
+          <li>
+            <a href="{% url 'login' %}">Sign in</a>
+          </li>
+          <li>
+            <a href="{% url 'reviews:signup' %}">Create account</a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
 
-  {% block content %}{% endblock %}
+    <!-- 
+      Screen-reader-friendly live region for dynamic status messages.
+      Will read out success or info messages to assistive tech users.
+    -->
+    <div role="status" aria-live="polite"></div>
 
+    <!-- Page-specific content goes here -->
+    {% block content %}{% endblock %}
+
+    <!-- 
+      Message loop for Django's messages framework.
+      Displays login/logout notifications or other alerts.
+    -->
+    {% if messages %}
+      <div class="messages" role="status" aria-live="polite">
+        {% for message in messages %}
+          <p class="alert">{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
   </main>
 </body>
 </html>
-

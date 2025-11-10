@@ -28,3 +28,27 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, "registration/signup.html", {"form": form})
+# --- Auth wrappers to add friendly flash messages (no template rewrite needed) ---
+from django.contrib import messages
+from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import reverse_lazy
+from django.contrib.auth import logout
+
+class LoginWithMessage(LoginView):
+    """
+    Drop-in replacement for Django's LoginView that shows a success toast.
+    Keeps existing templates/URLs; we just attach a message on successful login.
+    """
+    def form_valid(self, form):
+        messages.success(self.request, "Welcome back! You’re signed in.")
+        return super().form_valid(form)
+
+
+def logout_then_home(request):
+    """
+    Log the user out, show a friendly message, and send them to reviews home.
+    Uses GET safely (same behavior as Django's LogoutView).
+    """
+    logout(request)
+    messages.success(request, "You’ve signed out.")
+    return redirect("reviews:home")
