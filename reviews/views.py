@@ -52,3 +52,28 @@ def logout_then_home(request):
     logout(request)
     messages.success(request, "You’ve signed out.")
     return redirect("reviews:home")
+
+# --- New review form view (GET shows form, POST saves) ---
+from .forms import ReviewForm
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def new(request):
+    """
+    Create a new Review.
+    - GET: render empty form
+    - POST: validate, set author to the logged-in user, save, redirect to detail
+    """
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            # Create instance without saving so we can set the author first
+            review = form.save(commit=False)
+            review.author = request.user  # ensure ownership for edit/delete later
+            review.save()
+            return redirect(review.get_absolute_url())  # go to the new review page
+    else:
+        form = ReviewForm()
+
+    # If GET or form invalid, render the form again (with errors if any)
+    return render(request, "reviews/new.html", {"form": form})

@@ -1,0 +1,16 @@
+
+{% extends "reviews/base.html" %}
+{% block title %}Post a Review — Fragrance Club{% endblock %}
+{% block content %}
+  <h1>Post a New Review</h1>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {{ form.as_p }}  {# includes per-field errors automatically #}
+    <button type="submit">Submit Review</button>
+  </form>
+
+  <p><a href="{% url 'reviews:home' %}">← Back to reviews</a></p>
+{% endblock %}
+
