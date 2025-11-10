@@ -37,3 +37,21 @@ class LoginPageTest(TestCase):
     def test_login_page_returns_200(self):
         resp = self.client.get("/accounts/login/")
         self.assertEqual(resp.status_code, 200)
+
+# reviews/tests.py
+from django.test import TestCase
+from django.urls import reverse
+from django.contrib.auth.models import User
+
+class NewReviewAccessTest(TestCase):
+    def test_anonymous_is_redirected_to_login(self):
+        resp = self.client.get(reverse("reviews:new"))
+        self.assertEqual(resp.status_code, 302)
+        self.assertIn("/accounts/login/", resp.headers["Location"])
+
+    def test_logged_in_gets_200(self):
+        User.objects.create_user(username="alice", email="a@example.com", password="pw12345")
+        self.client.login(username="alice", password="pw12345")
+        resp = self.client.get(reverse("reviews:new"))
+        self.assertEqual(resp.status_code, 200)
+        

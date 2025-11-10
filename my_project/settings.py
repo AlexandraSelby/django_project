@@ -141,4 +141,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = "reviews:home"   # after successful login
 LOGOUT_REDIRECT_URL = "reviews:home"  # after logout
 LOGIN_URL = "login"                   # default login page for @login_required redirects
+# settings.py
+
+
 

@@ -1,15 +1,32 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>{{ review.brand }} — {{ review.fragrance_name }}</title>
-  </head>
-  <body>
-    <p><a href="{% url 'reviews:home' %}">← Back to reviews</a></p>
+{% extends "reviews/base.html" %}
+{% block title %}{{ review.brand }} — {{ review.fragrance_name }}{% endblock %}
 
-    <h1>{{ review.brand }} — {{ review.fragrance_name }}</h1>
-    <p><strong>Rating:</strong> {{ review.rating }}/5</p>
-    <p>{{ review.body|linebreaksbr }}</p>
-    <p><small>Added: {{ review.created }}</small></p>
-  </body>
-</html>
+{% block content %}
+  <!-- 
+    Back navigation: always show this link to let users return 
+    to the full list of reviews.
+  -->
+  <p><a href="{% url 'reviews:home' %}">← Back to reviews</a></p>
+
+  <!-- 
+    Review content area: display all details for one review.
+    Uses simple semantic HTML and safe Django template filters.
+  -->
+  <h1>{{ review.brand }} — {{ review.fragrance_name }}</h1>
+  <p><strong>Rating:</strong> {{ review.rating }}/5</p>
+  <p>{{ review.body|linebreaksbr }}</p>
+  <p><small>Added: {{ review.created }}</small></p>
+
+  <!-- 
+    Author-only controls:
+    Show Edit and Delete buttons only to the user who created the review.
+    - Keeps ownership logic visible.
+    - Buttons are disabled placeholders until edit/delete features are added.
+  -->
+  {% if user.is_authenticated and review.author_id == user.id %}
+    <p style="margin-top:1rem;">
+      <button type="button" disabled title="Edit feature coming soon">Edit</button>
+      <button type="button" disabled title="Delete feature coming soon">Delete</button>
+    </p>
+  {% endif %}
+{% endblock %}
