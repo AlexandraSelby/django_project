@@ -1,0 +1,16 @@
+{% extends "reviews/base.html" %}
+{% block title %}Edit — {{ review.brand }} {{ review.fragrance_name }}{% endblock %}
+
+{% block content %}
+  <!-- Back link to the review detail -->
+  <p><a href="{{ review.get_absolute_url }}">← Back to review</a></p>
+
+  <!-- Edit form: pre-filled via instance=review in the view -->
+  <h1>Edit review</h1>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {{ form.as_p }}
+    <button type="submit">Save changes</button>
+  </form>
+{% endblock %}

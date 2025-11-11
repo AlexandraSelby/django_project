@@ -21,12 +21,16 @@
     Author-only controls:
     Show Edit and Delete buttons only to the user who created the review.
     - Keeps ownership logic visible.
-    - Buttons are disabled placeholders until edit/delete features are added.
+    - Edit is a regular link (styled like a button).
+    - Delete remains disabled until implemented next.
   -->
   {% if user.is_authenticated and review.author_id == user.id %}
     <p style="margin-top:1rem;">
-      <button type="button" disabled title="Edit feature coming soon">Edit</button>
-      <button type="button" disabled title="Delete feature coming soon">Delete</button>
+      <a href="{% url 'reviews:edit' review.id %}"
+         style="display:inline-block;padding:0.5rem 0.85rem;border:1px solid #222;border-radius:8px;text-decoration:none;">
+        Edit
+      </a>
+      <button type="button" disabled title="Delete coming next">Delete</button>
     </p>
   {% endif %}
 {% endblock %}

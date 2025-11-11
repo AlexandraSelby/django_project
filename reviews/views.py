@@ -77,3 +77,35 @@ def new(request):
 
     # If GET or form invalid, render the form again (with errors if any)
     return render(request, "reviews/new.html", {"form": form})
+from django.http import HttpResponseForbidden
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .forms import ReviewForm
+from .models import Review
+from django.shortcuts import render, get_object_or_404, redirect
+
+@login_required
+def edit(request, pk: int):
+    """
+    Edit an existing Review.
+    - Only the author can edit.
+    - GET: show pre-filled form
+    - POST: validate & save, then redirect to detail
+    """
+    review = get_object_or_404(Review, pk=pk)
+
+    # Authorisation: only the creator may edit
+    if review.author_id != request.user.id:
+        return HttpResponseForbidden("You do not have permission to edit this review.")
+
+    if request.method == "POST":
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your review was updated.")
+            return redirect(review.get_absolute_url())
+    else:
+        form = ReviewForm(instance=review)
+
+    return render(request, "reviews/edit.html", {"form": form, "review": review})
+
