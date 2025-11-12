@@ -1,0 +1,20 @@
+{% extends "reviews/base.html" %}
+{% block title %}Delete — {{ review.brand }} {{ review.fragrance_name }}{% endblock %}
+
+{% block content %}
+  <!-- Confirm destructive action -->
+  <p><a href="{{ review.get_absolute_url }}">← Back to review</a></p>
+  <h1>Delete review?</h1>
+  <p>
+    You are about to delete:
+    <strong>{{ review.brand }} — {{ review.fragrance_name }}</strong>
+    ({{ review.rating }}/5)
+  </p>
+  <p>This action cannot be undone.</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+    <a href="{{ review.get_absolute_url }}" style="margin-left:0.5rem;">Cancel</a>
+  </form>
+{% endblock %}

@@ -109,3 +109,28 @@ def edit(request, pk: int):
 
     return render(request, "reviews/edit.html", {"form": form, "review": review})
 
+# -- Inline delete: simple, owner-only, POST-only --
+from django.views.decorators.http import require_POST
+from django.http import HttpResponseForbidden
+from django.contrib import messages
+
+@require_POST
+@login_required
+def delete_review(request, pk: int):
+    """
+    Delete a review directly from the detail page.
+    - POST only (no GET deletes)
+    - Only the author can delete
+    - On success: redirect to /reviews/ with a flash message
+    """
+    review = get_object_or_404(Review, pk=pk)
+
+    if review.author_id != request.user.id:
+        return HttpResponseForbidden("You do not have permission to delete this review.")
+
+    review.delete()
+    messages.success(request, "Your review was deleted.")
+    return redirect("reviews:home")
+
+
+

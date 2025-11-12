@@ -12,6 +12,7 @@ urlpatterns = [
     path("signup/", views.signup, name="signup"),  # /reviews/signup/
     path("new/", views.new, name="new"),  # new route for posting reviews
     path("<int:pk>/edit/", views.edit, name="edit"),  # ← button for editing the content you posted 
+   path("<int:pk>/delete/", views.delete_review, name="delete"), # ← button for delete the content you posted
 ]
 
 

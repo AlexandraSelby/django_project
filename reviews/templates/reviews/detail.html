@@ -25,12 +25,21 @@
     - Delete remains disabled until implemented next.
   -->
   {% if user.is_authenticated and review.author_id == user.id %}
-    <p style="margin-top:1rem;">
+    <p style="margin-top:1rem; display:flex; gap:.5rem;">
+      <!-- Edit link -->
       <a href="{% url 'reviews:edit' review.id %}"
          style="display:inline-block;padding:0.5rem 0.85rem;border:1px solid #222;border-radius:8px;text-decoration:none;">
         Edit
       </a>
-      <button type="button" disabled title="Delete coming next">Delete</button>
+
+      <!-- Delete form (POST) -->
+      <form method="post"
+            action="{% url 'reviews:delete' review.id %}"
+            onsubmit="return confirm('Delete this review? This cannot be undone.');"
+            style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+      </form>
     </p>
   {% endif %}
 {% endblock %}
