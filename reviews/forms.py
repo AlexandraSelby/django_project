@@ -12,12 +12,13 @@ class ReviewForm(forms.ModelForm):
     """
     class Meta:
         model = Review
-        fields = ["brand", "fragrance_name", "rating", "body"]
+        fields = ["brand", "fragrance_name", "rating", "body", "video_url"]
         labels = {
             "brand": "Brand",
             "fragrance_name": "Fragrance name",
             "rating": "Rating (1–5)",
             "body": "Your review",
+            
         }
 
     def clean_rating(self):

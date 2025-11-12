@@ -2,21 +2,38 @@
 {% block title %}Fragrance Club — Reviews{% endblock %}
 
 {% block content %}
-  <h1>{{ review.brand }} — {{ review.fragrance_name }}</h1>
-<p><small>Posted {{ review.created|date:"j M Y, H:i" }}</small></p>
-<p><strong>Rating:</strong> {{ review.rating }}/5</p>
-
   {% if reviews %}
     <ul>
       {% for review in reviews %}
-        <li>
+        <li style="margin-bottom:1rem;">
           <strong>{{ review.brand }} – {{ review.fragrance_name }}</strong>
-({{ review.rating }}/5)<br />
-<small>Posted {{ review.created|date:"j M Y, H:i" }}</small><br />
-{{ review.body|truncatewords:20 }}<br />
-<a href="{% url 'reviews:detail' review.id %}">Read more</a>
+          ({{ review.rating }}/5)<br>
+          <small>Posted {{ review.created|date:"j M Y, H:i" }}</small><br>
+          {{ review.body|truncatewords:20 }}<br>
+          <a href="{% url 'reviews:detail' review.id %}">Read more</a>
+
+          {# optional YouTube preview on the list page #}
+          {% with review.youtube_embed_src_auto as yt %}
+            {% if yt %}
+              <details style="margin:.5rem 0;">
+                <summary>Watch review</summary>
+                <div style="margin:.5rem 0;">
+                  <iframe
+                    width="560" height="315"
+                    src="{{ yt }}"
+                    title="YouTube video"
+                    frameborder="0" loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                    style="max-width:100%;border-radius:8px;">
+                  </iframe>
+                </div>
+              </details>
+            {% endif %}
+          {% endwith %}
         </li>
-        <hr />
+        <hr>
       {% endfor %}
     </ul>
   {% else %}
