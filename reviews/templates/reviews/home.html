@@ -1,42 +1,81 @@
 {% extends "reviews/base.html" %}
+{% load static %}
+
 {% block title %}Fragrance Club — Reviews{% endblock %}
 
 {% block content %}
-  {% if reviews %}
-    <ul>
-      {% for review in reviews %}
-        <li style="margin-bottom:1rem;">
-          <strong>{{ review.brand }} – {{ review.fragrance_name }}</strong>
-          ({{ review.rating }}/5)<br>
-          <small>Posted {{ review.created|date:"j M Y, H:i" }}</small><br>
-          {{ review.body|truncatewords:20 }}<br>
-          <a href="{% url 'reviews:detail' review.id %}">Read more</a>
 
-          {# optional YouTube preview on the list page #}
-          {% with review.youtube_embed_src_auto as yt %}
-            {% if yt %}
-              <details style="margin:.5rem 0;">
-                <summary>Watch review</summary>
-                <div style="margin:.5rem 0;">
-                  <iframe
-                    width="560" height="315"
-                    src="{{ yt }}"
-                    title="YouTube video"
-                    frameborder="0" loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen
-                    style="max-width:100%;border-radius:8px;">
-                  </iframe>
+    <div class="hero-section">
+        
+        <h1 class="hero-title">
+            Discover Your Next Signature Scent.
+        </h1>
+        
+        <p class="hero-text">
+            Welcome to the Fragrance Club, where we share and discover reviews of perfumes, colognes, and home scents. **Scroll down to read our community's latest reviews**, or use our quick quiz to find a fragrance perfectly matched to your preferences!
+        </p>
+
+        <a href="https://fragrance-quiz-27faab65c010.herokuapp.com/" target="_blank" rel="noopener" 
+            class="btn btn-primary hero-btn">
+            Find Your Fragrance with the Quiz →
+        </a>
+    </div>
+
+    <h2 class="section-heading">Latest Community Reviews</h2>
+    
+    {% if reviews %}
+        <div class="review-list">
+            {% for review in reviews %}
+                <div class="review-card">
+                    <a href="{% url 'reviews:detail' review.id %}" class="card-link">
+                        
+                        <div class="review-header">
+                            <div class="review-title">
+                                <div class="brand-name">{{ review.brand }}</div>
+                                <h3 class="fragrance-name">{{ review.fragrance_name }}</h3>
+                            </div>
+                            
+                            <div class="rating">
+                                {% for i in "12345"|make_list %}
+                                    {% if forloop.counter <= review.rating %}
+                                        <span class="star">★</span>
+                                    {% else %}
+                                        <span class="star-empty">☆</span>
+                                    {% endif %}
+                                {% endfor %}
+                                ({{ review.rating }}/5)
+                            </div>
+                        </div>
+
+                        <p class="review-body">{{ review.body|truncatewords:40 }}</p>
+
+                        <div class="review-meta">
+                            <small>Posted by {{ review.author.username|default:"Anonymous" }} on {{ review.created|date:"j M Y" }}</small>
+                        </div>
+                    </a>
+
+                    {% with review.youtube_embed_src_auto as yt %}
+                        {% if yt %}
+                            <details class="review-video-details">
+                                <summary>Watch embedded review</summary>
+                                <div class="video-responsive">
+                                    <iframe
+                                        src="{{ yt }}"
+                                        title="YouTube video"
+                                        frameborder="0" loading="lazy"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin"
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                            </details>
+                        {% endif %}
+                    {% endwith %}
+
                 </div>
-              </details>
-            {% endif %}
-          {% endwith %}
-        </li>
-        <hr>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No reviews yet. Add one in the admin.</p>
-  {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No reviews yet. Add one in the admin.</p>
+    {% endif %}
 {% endblock %}

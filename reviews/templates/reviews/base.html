@@ -1,82 +1,60 @@
-<!DOCTYPE html>
+{% load static %}  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <title>{% block title %}Fragrance Club{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <link rel="stylesheet" href="{% static 'reviews/css/style.css' %}">
+  
   <style>
-    /* Basic typography and layout */
-    body { font-family: system-ui, sans-serif; margin: 2rem; line-height: 1.6; }
-    .container { max-width: 900px; margin: 0 auto; }
+    /* CSS REUSED: Basic typography and layout. Keeping this simple one here */
+    body { margin: 0; line-height: 1.6; }
+    /* The max-width styling is now handled by the .container class in style.css */
   </style>
 </head>
 <body>
+  
+  <nav aria-label="Primary" style="display:flex;justify-content:space-between;align-items:center;padding:1rem 0;">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
+        
+        <a href="{% url 'reviews:home' %}" style="font-weight:600;">Fragrance Club</a>
+
+        <a href="https://fragrance-quiz-27faab65c010.herokuapp.com/" target="_blank" rel="noopener" 
+        style="padding:0.4rem 0.75rem; border:1px solid #222; border-radius:999px; text-decoration:none;">
+            Take the Quiz
+        </a>
+
+        <ul style="list-style:none;display:flex;gap:1rem;margin:0;padding:0;">
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'reviews:new' %}">Post review</a></li>
+                <li>
+                    <span>Welcome, <strong>{{ user.username }}</strong></span>
+                </li>
+                <li>
+                    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{% url 'reviews:home' %}">
+                        <button type="submit">Sign out</button>
+                    </form>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{% url 'login' %}">Sign in</a>
+                </li>
+                <li>
+                    <a href="{% url 'reviews:signup' %}">Create account</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+  </nav>
+
   <main class="container">
-
-    <!-- 
-      Primary navigation bar 
-      Includes site title and user account controls.
-      Shows Sign in / Create account for anonymous users,
-      and username + Sign out for logged-in users.
-    -->
-    <nav aria-label="Primary" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
-      <!-- Site logo/title -->
-      <a href="{% url 'reviews:home' %}" style="font-weight:600;">Fragrance Club</a>
-      <li>
-  <!-- Cross-app CTA: opens the hosted fragrance quiz in a new tab -->
-  <a href="https://fragrance-quiz-27faab65c010.herokuapp.com/" target="_blank" rel="noopener" 
-     style="padding:0.4rem 0.75rem; border:1px solid #222; border-radius:999px; text-decoration:none;">
-    Take the Quiz
-  </a>
-</li>
-
-      <!-- Account actions -->
-      <ul style="list-style:none;display:flex;gap:1rem;margin:0;padding:0;">
-        {% if user.is_authenticated %}
-          <li><a href="{% url 'reviews:new' %}">Post review</a></li>
-          <li>
-            <!-- Friendly greeting for logged-in user -->
-            <span>Welcome, <strong>{{ user.username }}</strong></span>
-          </li>
-          <li>
-            <!-- 
-              Sign out link (GET method) with ?next redirect
-              Simpler and avoids CSRF issues.
-              Redirects user to reviews home after logout.
-            -->
-            <li>
-  <!-- Logout must be POST on Django 5 -->
-  <form method="post" action="{% url 'logout' %}" style="display:inline;">
-    {% csrf_token %}
-    <input type="hidden" name="next" value="{% url 'reviews:home' %}">
-    <button type="submit">Sign out</button>
-  </form>
-            </li>
-        {% else %}
-          <!-- Anonymous user options -->
-          <li>
-            <a href="{% url 'login' %}">Sign in</a>
-          </li>
-          <li>
-            <a href="{% url 'reviews:signup' %}">Create account</a>
-          </li>
-        {% endif %}
-      </ul>
-    </nav>
-
-    <!-- 
-      Screen-reader-friendly live region for dynamic status messages.
-      Will read out success or info messages to assistive tech users.
-    -->
     <div role="status" aria-live="polite"></div>
 
-    <!-- Page-specific content goes here -->
     {% block content %}{% endblock %}
 
-    <!-- 
-      Message loop for Django's messages framework.
-      Displays login/logout notifications or other alerts.
-    -->
     {% if messages %}
       <div class="messages" role="status" aria-live="polite">
         {% for message in messages %}
