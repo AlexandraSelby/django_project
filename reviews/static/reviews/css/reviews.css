@@ -83,50 +83,156 @@
    ========================================= */
 
 .site-nav {
-    border-bottom: 1px solid #eee;
-    margin-bottom: 1rem;
     background: #ffffff;
+    border-bottom: 1px solid #f3d5f5;
+    box-shadow: 0 4px 14px rgba(180, 92, 218, 0.06);
+    padding: 0.35rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .site-nav-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.75rem 0;
 }
 
-/* Brand / logo link */
+/* Brand / logo */
 .site-logo {
-    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
     text-decoration: none;
-    color: #222;
+    color: #4f2a67;
+    letter-spacing: 0.03em;
 }
 
-.site-logo:hover,
-.site-logo:focus {
-    text-decoration: underline;
+/* Perfume bottle in the navbar */
+.site-nav .footer-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 999px;
+    box-shadow: 0 4px 10px rgba(180, 92, 218, 0.25);
 }
 
 /* Nav links list */
 .site-nav-links {
     list-style: none;
     display: flex;
+    align-items: center;
     gap: 1rem;
     margin: 0;
     padding: 0;
     font-size: 0.95rem;
 }
 
-/* Links inside the nav */
+/* Plain links */
 .site-nav-links a {
     text-decoration: none;
-    color: #333;
+    color: #4a3454;
+    font-weight: 500;
 }
 
 .site-nav-links a:hover,
 .site-nav-links a:focus {
-    text-decoration: underline;
+    color: #b45cda;
 }
+
+/* Welcome text */
+.site-nav-links span {
+    color: #7a5c89;
+    font-size: 0.9rem;
+}
+
+/* Buttons in nav (Sign out + future CTA) */
+.site-nav-links button {
+    border: none;
+    padding: 0.45rem 0.95rem;
+    border-radius: 999px;
+    background: #b45cda;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(180, 92, 218, 0.35);
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.site-nav-links button:hover,
+.site-nav-links button:focus {
+    background: #9f4ac5;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(180, 92, 218, 0.4);
+}
+
+/* Make the first link (Post review) feel more like a soft pill */
+.site-nav-links li:first-child a {
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(180, 92, 218, 0.08);
+}
+
+.site-nav-links li:first-child a:hover {
+    background: rgba(180, 92, 218, 0.16);
+}
+
+/* =========================================
+   NAV TOGGLE (BURGER FOR MOBILE)
+   ========================================= */
+
+/* Hidden on larger screens */
+.nav-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin-left: auto;          /* push it to the right */
+    cursor: pointer;
+
+    display: inline-flex;
+    flex-direction: column;     /* <-- stack bars vertically */
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.nav-toggle-bar {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 999px;
+    background: #b45cda;        /* match quiz button colour */
+}
+
+/* Mobile layout behaviour */
+
+@media (max-width: 768px) {
+    .site-nav-inner {
+        flex-wrap: wrap;
+        row-gap: 0.5rem;
+    }
+
+    .nav-toggle {
+        display: inline-flex;       /* show burger on small screens */
+    }
+
+    .site-nav-links {
+        display: none;              /* hide menu by default on mobile */
+        width: 100%;
+        margin-top: 0.5rem;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.6rem;
+    }
+
+    .site-nav-links.nav-open {
+        display: flex;              /* shown when JS adds .nav-open */
+    }
+}
+
 /* =========================================
     REVIEW CARD CONTAINER
    ========================================= */
@@ -154,4 +260,50 @@
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+/* =========================================
+   FOOTER
+   ========================================= */
+
+.site-footer {
+    margin-top: 4rem;
+    padding: 2.5rem 1rem 2.25rem;
+    background: linear-gradient(135deg, #fbe9ff, #ffeef5); /* echoes hero */
+    border-top: 1px solid #f3d5f5;
+}
+
+.footer-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.75rem;
+    opacity: 0.95;
+}
+
+.footer-title {
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    margin: 0 0 0.4rem;
+    color: #4a245c;
+}
+
+.footer-tagline {
+    margin: 0 0 0.6rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+.footer-note {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #6a4a7c;
+    opacity: 0.8;
 }

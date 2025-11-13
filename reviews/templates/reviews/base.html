@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>{% block title %}Fragrance Club{% endblock %}</title>
+  <title>{% block title %}Scentaholic Fragrance Club{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   {# --------------------------------------------- #}
@@ -13,7 +13,7 @@
 </head>
 
 <body>
- {# ----------------------------------------------------- #}
+   {# ----------------------------------------------------- #}
   {# Primary navigation bar — shown on every page          #}
   {# Uses .container for width and flex layout via CSS     #}
   {# ----------------------------------------------------- #}
@@ -22,7 +22,23 @@
     <div class="container site-nav-inner">
         
         {# Home / brand link #}
-        <a href="{% url 'reviews:home' %}" class="site-logo">Fragrance Club</a>
+        <a href="{% url 'reviews:home' %}" class="site-logo">
+            <img
+              src="{% static 'reviews/images/perfume-bottle.gif' %}"
+              alt="Perfume bottle icon"
+              class="footer-icon"
+            >
+            Scentaholic Fragrance Club
+        </a>
+
+        {# Mobile navigation toggle (burger) #}
+        <button class="nav-toggle" type="button"
+                aria-label="Toggle navigation"
+                aria-expanded="false">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
 
         {# Navigation menu (changes depending on login state) #}
         <ul class="site-nav-links">
@@ -78,6 +94,43 @@
       </div>
     {% endif %}
   </main>
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <img
+      src="{% static 'reviews/images/perfume-bottle.gif' %}"
+      alt="Perfume bottle icon"
+      class="footer-icon"
+    >
 
+    <p class="footer-title">
+      Scentaholic Fragrance Club
+    </p>
+
+    <p class="footer-tagline">
+      A cosy corner for scent lovers to share reviews, swap stories, and discover their next signature fragrance. ✨
+    </p>
+
+    <p class="footer-note">
+      Made with ❤️, curiosity, and a little cloud of perfume • {{ now|date:"Y" }}
+    </p>
+  </div>
+</footer>
+  {# -------------------------------------------------- #}
+  {# Small script to toggle the mobile burger menu      #}
+  {# -------------------------------------------------- #}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggle = document.querySelector('.nav-toggle');
+      const links = document.querySelector('.site-nav-links');
+
+      if (!toggle || !links) return;  // Safety check
+
+      toggle.addEventListener('click', function () {
+        const isOpen = links.classList.toggle('nav-open');
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    });
+  </script>
+  
 </body>
 </html>
