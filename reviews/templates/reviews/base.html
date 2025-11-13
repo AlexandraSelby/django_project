@@ -13,26 +13,19 @@
 </head>
 
 <body>
-
+ {# ----------------------------------------------------- #}
+  {# Primary navigation bar — shown on every page          #}
+  {# Uses .container for width and flex layout via CSS     #}
   {# ----------------------------------------------------- #}
-  {# Primary navigation bar — displayed on every page      #}
-  {# Inline styles kept here for now, external CSS used    #}
-  {# only for the Reviews app layout + styling.            #}
-  {# ----------------------------------------------------- #}
-  <nav aria-label="Primary" style="display:flex;justify-content:space-between;align-items:center;padding:1rem 0;">
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
+  
+  <nav class="site-nav" aria-label="Primary">
+    <div class="container site-nav-inner">
         
-        {# Home link #}
-        <a href="{% url 'reviews:home' %}" style="font-weight:600;">Fragrance Club</a>
-
-        {# Link to the external fragrance quiz app #}
-        <a href="https://fragrance-quiz-27faab65c010.herokuapp.com/" target="_blank" rel="noopener" 
-        style="padding:0.4rem 0.75rem; border:1px solid #222; border-radius:999px; text-decoration:none;">
-            Take the Quiz
-        </a>
+        {# Home / brand link #}
+        <a href="{% url 'reviews:home' %}" class="site-logo">Fragrance Club</a>
 
         {# Navigation menu (changes depending on login state) #}
-        <ul style="list-style:none;display:flex;gap:1rem;margin:0;padding:0;">
+        <ul class="site-nav-links">
             {% if user.is_authenticated %}
 
                 {# Link to create a new review #}

@@ -1,8 +1,4 @@
 
-/* =========================================
-   STEP 2 — HERO SECTION STYLES
-   ========================================= */
-
 /* The main hero container */
 .hero-section {
     background: linear-gradient(135deg, #fbe9ff, #ffeef5);
@@ -53,4 +49,81 @@
 .hero-btn:active {
     transform: translateY(0);
     box-shadow: 0 4px 10px rgba(180, 92, 218, 0.3);
+}
+
+/* "Latest Community Reviews" heading */
+.section-heading {
+    font-size: 1.5rem;
+    margin: 0 0 1.5rem;
+    letter-spacing: 0.04em;
+}
+
+/* Container for all review cards */
+.review-list {
+    display: grid;
+    grid-template-columns: 1fr;  /* 1 column on mobile by default */
+    gap: 1.5rem;                 /* space between cards */
+}
+
+/* 2 columns on small/medium screens */
+@media (min-width: 600px) {
+    .review-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* 3 columns on large screens */
+@media (min-width: 992px) {
+    .review-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+/* =========================================
+   NAVIGATION BAR
+   ========================================= */
+
+.site-nav {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1rem;
+    background: #ffffff;
+}
+
+.site-nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+}
+
+/* Brand / logo link */
+.site-logo {
+    font-weight: 600;
+    text-decoration: none;
+    color: #222;
+}
+
+.site-logo:hover,
+.site-logo:focus {
+    text-decoration: underline;
+}
+
+/* Nav links list */
+.site-nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    font-size: 0.95rem;
+}
+
+/* Links inside the nav */
+.site-nav-links a {
+    text-decoration: none;
+    color: #333;
+}
+
+.site-nav-links a:hover,
+.site-nav-links a:focus {
+    text-decoration: underline;
 }
