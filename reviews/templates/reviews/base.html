@@ -1,36 +1,49 @@
-{% load static %}  <!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <title>{% block title %}Fragrance Club{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
-  <link rel="stylesheet" href="{% static 'reviews/css/style.css' %}">
-  
-  <style>
-    /* CSS REUSED: Basic typography and layout. Keeping this simple one here */
-    body { margin: 0; line-height: 1.6; }
-    /* The max-width styling is now handled by the .container class in style.css */
-  </style>
+
+  {# --------------------------------------------- #}
+  {# Load the Reviews app stylesheet (external CSS) #}
+  {# --------------------------------------------- #}
+  <link rel="stylesheet" href="{% static 'reviews/css/reviews.css' %}">
 </head>
+
 <body>
-  
+
+  {# ----------------------------------------------------- #}
+  {# Primary navigation bar — displayed on every page      #}
+  {# Inline styles kept here for now, external CSS used    #}
+  {# only for the Reviews app layout + styling.            #}
+  {# ----------------------------------------------------- #}
   <nav aria-label="Primary" style="display:flex;justify-content:space-between;align-items:center;padding:1rem 0;">
     <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
         
+        {# Home link #}
         <a href="{% url 'reviews:home' %}" style="font-weight:600;">Fragrance Club</a>
 
+        {# Link to the external fragrance quiz app #}
         <a href="https://fragrance-quiz-27faab65c010.herokuapp.com/" target="_blank" rel="noopener" 
         style="padding:0.4rem 0.75rem; border:1px solid #222; border-radius:999px; text-decoration:none;">
             Take the Quiz
         </a>
 
+        {# Navigation menu (changes depending on login state) #}
         <ul style="list-style:none;display:flex;gap:1rem;margin:0;padding:0;">
             {% if user.is_authenticated %}
+
+                {# Link to create a new review #}
                 <li><a href="{% url 'reviews:new' %}">Post review</a></li>
+
+                {# Display username #}
                 <li>
                     <span>Welcome, <strong>{{ user.username }}</strong></span>
                 </li>
+
+                {# Logout button #}
                 <li>
                     <form method="post" action="{% url 'logout' %}" style="display:inline;">
                         {% csrf_token %}
@@ -38,23 +51,32 @@
                         <button type="submit">Sign out</button>
                     </form>
                 </li>
+
             {% else %}
-                <li>
-                    <a href="{% url 'login' %}">Sign in</a>
-                </li>
-                <li>
-                    <a href="{% url 'reviews:signup' %}">Create account</a>
-                </li>
+
+                {# Login link #}
+                <li><a href="{% url 'login' %}">Sign in</a></li>
+
+                {# Create account link #}
+                <li><a href="{% url 'reviews:signup' %}">Create account</a></li>
+
             {% endif %}
         </ul>
     </div>
   </nav>
 
+  {# -------------------------------------------------- #}
+  {# Main page container — each template fills content  #}
+  {# inside the {% block content %} area.               #}
+  {# -------------------------------------------------- #}
   <main class="container">
     <div role="status" aria-live="polite"></div>
 
     {% block content %}{% endblock %}
 
+    {# -------------------------------------------------- #}
+    {# Flash messages (success/error notifications)       #}
+    {# -------------------------------------------------- #}
     {% if messages %}
       <div class="messages" role="status" aria-live="polite">
         {% for message in messages %}
@@ -63,5 +85,6 @@
       </div>
     {% endif %}
   </main>
+
 </body>
 </html>
