@@ -127,3 +127,31 @@
 .site-nav-links a:focus {
     text-decoration: underline;
 }
+/* =========================================
+    REVIEW CARD CONTAINER
+   ========================================= */
+
+/* The outer card box */
+.review-card {
+    background: #ffffff;
+    border-radius: 1.25rem;
+    padding: 1.25rem 1.25rem 1rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Make the whole card clickable but keep text styles */
+.card-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Subtle lift on hover */
+.review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
