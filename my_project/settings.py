@@ -10,16 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 from dotenv import load_dotenv
-import dj_database_url
+from pathlib import Path
 import os
+import dj_database_url
 
 load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG") == "True"
-
-from pathlib import Path
-import os
-from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
