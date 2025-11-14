@@ -507,8 +507,6 @@ Validated templates:
 
 ---
 
-![Nu HTML Validator Results](/reviews/static/images/nu-html-validator.png)
-
 
 #### CSS Validation (W3C CSS Validator)  
 The stylesheet `reviews/static/reviews/css/reviews.css` was validated using the W3C CSS Validator.
@@ -599,7 +597,6 @@ These tests confirm that both the homepage and individual review detail pages lo
 
 ---
 
-![Django Tests Running OK](/reviews/static/images/django-tests-ok.png)
 
 ### Manual Functional Testing  
 
@@ -738,46 +735,33 @@ The following screenshots were captured during testing to provide visual evidenc
 
 - **Django Tests – Terminal Output**  
   Full output from running the Django test suite, confirming that all configured tests executed and passed successfully.  
-  ![Django Tests – Terminal Output](reviews/static/reviews/images/django-tests.png)
+  ![Django Tests – Terminal Output](/reviews/static/reviews/images/django-tests.png)
 
 - **Django Tests Running OK**  
   A focused view of the final test summary (`OK`), showing that the core smoke tests and access-control tests completed without failures.  
-  ![Django Tests Running OK](reviews/static/reviews/images/django-tests-ok.png)
+  ![Django Tests Running OK](/reviews/static/reviews/images/django-tests-ok.png)
 
 - **Flake8 Linting Results**  
   Evidence of Python code quality checks using Flake8, confirming that there are no critical style or syntax issues in the key Django files.  
-  ![Flake8 Linting Results](reviews/static/reviews/images/flake8-linting.png)
+  ![Flake8 Linting Results](/reviews/static/reviews/images/flake8-linting.png)
 
 - **Nu HTML Validator Results**  
   Results from the Nu HTML Validator, showing that the rendered HTML for the core templates passes validation once Django template tags are accounted for.  
-  ![Nu HTML Validator Results](reviews/static/reviews/images/nu-html-validator.png)
+  ![Nu HTML Validator Results](/reviews/static/reviews/images/nu-html-validator.png)
 
 - **W3C CSS Validator Results**  
   Screenshot from the W3C CSS Validator confirming that the main stylesheet (`reviews.css`) contains no errors and only acceptable modern-CSS warnings.  
-  ![W3C CSS Validator Results](reviews/static/reviews/images/css-validator.png)
+  ![W3C CSS Validator Results](/reviews/static/reviews/images/css-validator.png)
 
 - **Chrome DevTools Console – No Errors**  
   Browser console output captured during manual testing, showing no JavaScript errors or warnings while navigating the key views (home, detail, login, logout).  
-  ![Chrome DevTools Console – No Errors](reviews/static/reviews/images/chrome-console.png)
+  ![Chrome DevTools Console – No Errors](/reviews/static/reviews/images/chrome-console.png)
 
 - **WAVE Accessibility Results**  
   Accessibility scan of the main pages using the WAVE tool, demonstrating that the interface has no critical accessibility issues and follows basic accessibility best practices.  
-  ![WAVE Accessibility Results](reviews/static/reviews/images/wave-accessibility.png)
+  ![WAVE Accessibility Results](/reviews/static/reviews/images/wave-accessibility.png)
 
 
-![Django Tests – Terminal Output](/reviews/static/reviews/images/django-tests.png)
-
-![Django Tests Running OK](/reviews/static/reviews/images/django-tests-ok.png)
-
-![Flake8 Linting Results](/reviews/static/reviews/images/flake8-linting.png)
-
-![Nu HTML Validator Results](/reviews/static/reviews/images/nu-html-validator.png)
-
-![W3C CSS Validator Results](/reviews/static/reviews/images/css-validator.png.png)
-
-![Chrome DevTools Console – No Errors](/reviews/static/reviews/images/chrome-console.png)
-
-![WAVE Accessibility Results](/reviews/static/reviews/images/wave-accessibility.png)
 ## Future Enhancements  
 
 As the project grows, the next realistic step is to evolve it into a **Fragrance Club** with membership features and curated product offerings. These enhancements build naturally on the current structure:
