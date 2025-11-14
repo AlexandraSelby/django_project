@@ -52,7 +52,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # serve static files in production
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,9 +78,7 @@ TEMPLATES = [
         },
     },
 ]
-
 WSGI_APPLICATION = 'my_project.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -97,19 +95,30 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'UserAttributeSimilarityValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'MinimumLengthValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'CommonPasswordValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'NumericPasswordValidator'
+        ),
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -143,10 +152,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # - Returning visitors see the latest reviews immediately.
 # - New users land in a friendly, content-rich area after signing in.
 
-LOGIN_REDIRECT_URL = "reviews:home"   # after successful login
-LOGOUT_REDIRECT_URL = "reviews:home"  # after logout
-LOGIN_URL = "login"                   # default login page for @login_required redirects
-# settings.py
-
-
-
+LOGIN_REDIRECT_URL = "reviews:home"    # after successful login
+LOGOUT_REDIRECT_URL = "reviews:home"   # after logout
+LOGIN_URL = "login"                    # login pg for @login_required redirects
