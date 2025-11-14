@@ -732,6 +732,37 @@ All tests passed successfully.
 ---
 
 This TDD phase ensured that the *Post Review* feature was built on secure, predictable authentication behavior before any further development took place.
+### Testing Evidence (Screenshots)  
+
+The following screenshots were captured during testing to provide visual evidence of validation, code quality checks, and runtime stability:
+
+- **Django Tests – Terminal Output**  
+  Full output from running the Django test suite, confirming that all configured tests executed and passed successfully.  
+  ![Django Tests – Terminal Output](reviews/static/reviews/images/django-tests.png)
+
+- **Django Tests Running OK**  
+  A focused view of the final test summary (`OK`), showing that the core smoke tests and access-control tests completed without failures.  
+  ![Django Tests Running OK](reviews/static/reviews/images/django-tests-ok.png)
+
+- **Flake8 Linting Results**  
+  Evidence of Python code quality checks using Flake8, confirming that there are no critical style or syntax issues in the key Django files.  
+  ![Flake8 Linting Results](reviews/static/reviews/images/flake8-linting.png)
+
+- **Nu HTML Validator Results**  
+  Results from the Nu HTML Validator, showing that the rendered HTML for the core templates passes validation once Django template tags are accounted for.  
+  ![Nu HTML Validator Results](reviews/static/reviews/images/nu-html-validator.png)
+
+- **W3C CSS Validator Results**  
+  Screenshot from the W3C CSS Validator confirming that the main stylesheet (`reviews.css`) contains no errors and only acceptable modern-CSS warnings.  
+  ![W3C CSS Validator Results](reviews/static/reviews/images/css-validator.png)
+
+- **Chrome DevTools Console – No Errors**  
+  Browser console output captured during manual testing, showing no JavaScript errors or warnings while navigating the key views (home, detail, login, logout).  
+  ![Chrome DevTools Console – No Errors](reviews/static/reviews/images/chrome-console.png)
+
+- **WAVE Accessibility Results**  
+  Accessibility scan of the main pages using the WAVE tool, demonstrating that the interface has no critical accessibility issues and follows basic accessibility best practices.  
+  ![WAVE Accessibility Results](reviews/static/reviews/images/wave-accessibility.png)
 
 
 ![Django Tests – Terminal Output](/reviews/static/reviews/images/django-tests.png)
